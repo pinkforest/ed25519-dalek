@@ -12,6 +12,7 @@ keywords = ["cryptography", "ed25519", "curve25519", "signature", "ECC"]
 categories = ["cryptography", "no-std"]
 description = "Fast and efficient ed25519 EdDSA key generations, signing, and verification in pure Rust."
 exclude = [ ".gitignore", "TESTVECTORS", "res/*" ]
+rust-version = "1.60"
 
 [badges]
 travis-ci = { repository = "dalek-cryptography/ed25519-dalek", branch = "master"}
@@ -27,7 +28,7 @@ ed25519 = { version = "=2.0.0-pre.0", default-features = false }
 merlin = { version = "3", default-features = false, optional = true }
 rand = { version = "0.8", default-features = false, optional = true }
 rand_core = { version = "0.6", default-features = false, optional = true }
-serde_crate = { package = "serde", version = "1.0", default-features = false, optional = true }
+serde = { version = "1.0", default-features = false, optional = true }
 serde_bytes = { version = "0.11", optional = true }
 sha2 = { version = "0.10", default-features = false }
 zeroize = { version = "1", default-features = false }
@@ -38,7 +39,7 @@ bincode = "1.0"
 serde_json = "1.0"
 criterion = "0.3"
 rand = "0.8"
-serde_crate = { package = "serde", version = "1.0", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
 toml = { version = "0.5" }
 
 [[bench]]
@@ -48,9 +49,9 @@ required-features = ["batch"]
 
 [features]
 default = ["std", "rand"]
-std = ["alloc", "ed25519/std", "serde_crate/std", "sha2/std", "rand/std"]
-alloc = ["curve25519-dalek/alloc", "rand/alloc", "zeroize/alloc"]
-serde = ["serde_crate", "serde_bytes", "ed25519/serde"]
+std = ["alloc", "ed25519/std", "rand?/std", "serde?/std", "sha2/std"]
+alloc = ["curve25519-dalek/alloc", "rand?/alloc", "serde?/alloc", "zeroize/alloc"]
+serde = ["dep:serde", "serde_bytes", "ed25519/serde"]
 batch = ["alloc", "merlin", "rand/std"]
 # This feature enables deterministic batch verification.
 batch_deterministic = ["alloc", "merlin", "rand", "rand_core"]

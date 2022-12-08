@@ -419,6 +419,7 @@ mod test {
         assert!(!memory.contains(&0x15));
     }
 
+    #[cfg(feature = "rand")]
     #[test]
     fn pubkey_from_secret_and_expanded_secret() {
         let mut csprng = rand::rngs::OsRng {};

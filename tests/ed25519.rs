@@ -15,6 +15,7 @@ use ed25519_dalek::*;
 
 use hex::FromHex;
 
+#[cfg(feature = "rand")]
 use sha2::Sha512;
 
 #[cfg(test)]
@@ -196,7 +197,7 @@ mod vectors {
     }
 }
 
-#[cfg(test)]
+#[cfg(feature = "rand")]
 mod integrations {
     use super::*;
     use rand::rngs::OsRng;
@@ -314,8 +315,8 @@ mod integrations {
 }
 
 #[cfg(all(test, feature = "serde"))]
-#[derive(Debug, serde_crate::Serialize, serde_crate::Deserialize)]
-#[serde(crate = "serde_crate")]
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[serde(crate = "serde")]
 struct Demo {
     keypair: Keypair,
 }
