@@ -31,6 +31,7 @@ jobs:
       - run: cargo test --target ${{ matrix.target }} --features batch
       - run: cargo test --target ${{ matrix.target }} --features batch_deterministic
       - run: cargo test --target ${{ matrix.target }} --features serde
+      - run: cargo test --target ${{ matrix.target }} --features pkcs8
 
   build-simd:
     name: Test simd backend (nightly)
